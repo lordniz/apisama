@@ -29,6 +29,12 @@ public class Usuarios {
     @Column(name = "Contraseña")
     private String contraseña;
 
+    @Column(name = "Direccion")
+    private String direccion;
+
+    @Column(name = "Celular")
+    private String celular;
+
     @ManyToOne
     @JoinColumn(name = "ID_Rol")
     private Roles rol;
