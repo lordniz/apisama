@@ -18,36 +18,36 @@ public class NoticiasService {
         this.noticiasRepository = noticiasRepository;
     }
 
-    public Noticias crearRol(Noticias noticias) {
+    public Noticias crearNoticia(Noticias noticias) {
         return noticiasRepository.save(noticias);
     }
 
-    public List<Noticias> listarRoles() {
+    public List<Noticias> listarNoticia() {
         return noticiasRepository.findAll();
     }
 
-    public Noticias obtenerRolPorId(int id) {
+    public Noticias obtenerNoticiaPorId(int id) {
         Optional<Noticias> rol = noticiasRepository.findById(id);
         if (rol.isPresent()) {
             return rol.get();
         } else {
-            throw new IllegalArgumentException("No se encontró el rol especificado.");
+            throw new IllegalArgumentException("No se encontró la Noticia especificada.");
         }
     }
 
-    public Noticias actualizarRol(Noticias noticias) {
+    public Noticias actualizarNoticia(Noticias noticias) {
         validarExistenciaNoticia(noticias.getIdNoticia());
         return noticiasRepository.save(noticias);
     }
 
-    public void eliminarRol(int id) {
+    public void eliminarNoticia(int id) {
         validarExistenciaNoticia(id);
         noticiasRepository.deleteById(id);
     }
 
     private void validarExistenciaNoticia(int id) {
         if (!noticiasRepository.existsById(id)) {
-            throw new IllegalArgumentException("No se encontró el rol especificado.");
+            throw new IllegalArgumentException("No se encontró la Noticia especificada.");
         }
     }
 }
