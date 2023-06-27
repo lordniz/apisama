@@ -63,11 +63,13 @@ public class SecurityConfig {
                 .requestMatchers("/usuarios/**").permitAll()
                 .requestMatchers("/horarios/**").permitAll()
                 .requestMatchers("/noticias/**").permitAll()
-                /*.requestMatchers(HttpMethod.POST, "/api/celular/crear").hasAuthority("ADMIN")
+                .requestMatchers("/roles/**").permitAll()
+                .requestMatchers("/departamentos/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/celular/crear").hasAuthority("ADMIN")
                 .requestMatchers(HttpMethod.GET,"/api/celular/listar").hasAnyAuthority("ADMIN" , "USER")
                 .requestMatchers(HttpMethod.GET,"/api/celular/listarId/**").hasAnyAuthority("ADMIN" , "USER")
                 .requestMatchers(HttpMethod.DELETE,"/api/celular/eliminar/**").hasAuthority("ADMIN")
-                .requestMatchers(HttpMethod.PUT, "/api/celular/actualizar").hasAuthority("ADMIN")*/
+                .requestMatchers(HttpMethod.PUT, "/api/celular/actualizar").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic();
