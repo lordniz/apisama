@@ -1,209 +1,55 @@
 DROP DATABASE IF EXISTS BD_API_asistencias_sama;
 
+paso1: Borrar la abse de datos
+paso2:Crear la abse de datos
+paso3: correr el apisama
+paso4: insertar lo que te mande
+paso5: crear el primer usaurio por POSTMAN con contraseña normal sin Bycryp
+paso6: Disfrutar de la plataforma
+
 -- Crear la base de datos
 CREATE DATABASE BD_API_asistencias_sama;
 
 -- Seleccionar la base de datos
 USE BD_API_asistencias_sama;
 
--- Crear la tabla "Roles"
-CREATE TABLE Roles (
-  ID_Rol INT PRIMARY KEY AUTO_INCREMENT,
-  Nombre_Rol VARCHAR(50)
-);
+--
+-- Volcado de datos para la tabla `roles`
+--
 
--- Crear la tabla "Departamentos"
-CREATE TABLE Departamentos (
-  ID_Departamento INT PRIMARY KEY AUTO_INCREMENT,
-  Nombre_Departamento VARCHAR(50)
-);
+INSERT INTO `roles` (`id_rol`, `nombre_rol`) VALUES
+(1, 'Administrador'),
+(2, 'Supervisor'),
+(3, 'Empleado');
 
--- Crear la tabla "Usuarios"
-CREATE TABLE Usuarios (
-  ID_Usuario INT PRIMARY KEY AUTO_INCREMENT,
-  Nombre VARCHAR(50),
-  Apellido VARCHAR(50),
-  Nombre_de_usuario VARCHAR(50),
-  Contraseña VARCHAR(50),
-  ID_Rol INT,
-  FOREIGN KEY (ID_Rol) REFERENCES Roles(ID_Rol)
-);
+--
+-- Volcado de datos para la tabla `departamentos`
+--
 
--- Crear la tabla "Horarios"
-CREATE TABLE Horarios (
-  ID_Horario INT PRIMARY KEY AUTO_INCREMENT,
-  Nombre VARCHAR(50),
-  Hora_entrada TIME,
-  Hora_salida TIME
-);
-
--- Crear la tabla "Empleados"
-CREATE TABLE Empleados (
-  ID_Empleado INT PRIMARY KEY AUTO_INCREMENT,
-  ID_Usuario INT,
-  ID_Horario INT,
-  ID_Departamento INT,
-  Número_de_identificación VARCHAR(50),
-  FOREIGN KEY (ID_Usuario) REFERENCES Usuarios(ID_Usuario),
-  FOREIGN KEY (ID_Horario) REFERENCES Horarios(ID_Horario),
-  FOREIGN KEY (ID_Departamento) REFERENCES Departamentos(ID_Departamento)
-);
-
--- Crear la tabla "Asistencias"
-CREATE TABLE Asistencias (
-  ID_Asistencia INT PRIMARY KEY AUTO_INCREMENT,
-  ID_Empleado INT,
-  Fecha DATE,
-  Hora_entrada TIME,
-  Hora_salida TIME,
-  FOREIGN KEY (ID_Empleado) REFERENCES Empleados(ID_Empleado)
-);
-
--- Crear la tabla "Tardanzas"
-CREATE TABLE Tardanzas (
-  ID_Tardanza INT PRIMARY KEY AUTO_INCREMENT,
-  ID_Empleado INT,
-  Fecha DATE,
-  Hora_tardanza TIME,
-  FOREIGN KEY (ID_Empleado) REFERENCES Empleados(ID_Empleado)
-);
-
--- Crear la tabla "Faltas"
-CREATE TABLE Faltas (
-  ID_Falta INT PRIMARY KEY AUTO_INCREMENT,
-  ID_Empleado INT,
-  Fecha DATE,
-  Motivo VARCHAR(100),
-  FOREIGN KEY (ID_Empleado) REFERENCES Empleados(ID_Empleado)
-);
-
--- Crear la tabla "Permisos"
-CREATE TABLE Permisos (
-  ID_Permiso INT PRIMARY KEY AUTO_INCREMENT,
-  ID_Empleado INT,
-  Fecha_inicio DATE,
-  Fecha_fin DATE,
-  Motivo VARCHAR(100),
-  Estado VARCHAR(50),
-  FOREIGN KEY (ID_Empleado) REFERENCES Empleados(ID_Empleado)
-);
+INSERT INTO `departamentos` (`id_departamento`, `nombre_departamento`) VALUES
+(1, 'Ventas'),
+(2, 'Recursos Humanos'),
+(3, 'Finanzas');
 
 
+--
+-- Volcado de datos para la tabla `noticias`
+--
 
--- Insertar datos en la tabla "Horarios"
--- En este ejemplo, se insertan dos registros en la tabla "Horarios".
--- El primero representa un horario diurno con una hora de entrada a
--- las 08:00:00 y una hora de salida a las 17:00:00. El segundo registro
--- representa un horario nocturno con una hora de entrada a las 20:00:00
--- y una hora de salida a las 05:00:00 del día siguiente.
-INSERT INTO Horarios (Nombre, Hora_entrada, Hora_salida)
-VALUES ('Horario Diurno', '08:00:00', '17:00:00');
-INSERT INTO Horarios (Nombre, Hora_entrada, Hora_salida)
-VALUES ('Horario Nocturno', '20:00:00', '05:00:00');
+INSERT INTO `noticias` (`id_noticias`, `noticia_detalle`, `estado`, `noticia_titulo`) VALUES
+(1, 'Por semana santa tendremos libre desde el jueves 25 hasta el Lunes 29', 'Activo', 'FERIADO LARGO'),
+(2, 'Para el Turno mañana, tener presente que la hora de ingreso es a las 08:00 am', 'Activo', 'DESCUENTOS POR TARDANZAS'),
+(3, 'Saludamos a sus familiares de parte de los lideres de la Emoresa', 'Desactivado', 'FELIZ NAVIDAD');
 
--- Insertar datos en la tabla "Departamentos"
--- En este ejemplo, se insertan tres registros en la tabla "Departamentos" con los nombres de departamento
--- "Ventas", "Recursos Humanos" y "Finanzas". Puedes adaptar los nombres de departamento según tus necesidades y agregar más registros si es necesario.
-INSERT INTO Departamentos (Nombre_Departamento)
-VALUES ('Ventas');
-INSERT INTO Departamentos (Nombre_Departamento)
-VALUES ('Recursos Humanos');
-INSERT INTO Departamentos (Nombre_Departamento)
-VALUES ('Finanzas');
+--
+-- Volcado de datos para la tabla `horarios`
+--
 
-
--- Insertar datos en la tabla "Roles"
--- En este ejemplo, se insertan tres registros en la tabla "Roles" con los nombres de rol "Administrador",
--- "Supervisor" y "Empleado". Puedes ajustar los nombres de rol según tus necesidades y agregar más registros si es necesario.
-INSERT INTO Roles (Nombre_Rol)
-VALUES ('Administrador');
-INSERT INTO Roles (Nombre_Rol)
-VALUES ('Supervisor');
-INSERT INTO Roles (Nombre_Rol)
-VALUES ('Empleado');
-
-
-
--- En este ejemplo, se insertan cinco registros en la tabla "Usuarios" y cinco registros en la tabla "Empleados" relacionados con los
--- usuarios correspondientes. Puedes ajustar los nombres, apellidos, nombres de usuario, contraseñas y demás atributos según tus necesidades.
-
--- Insertar datos en la tabla "Usuarios"
-INSERT INTO Usuarios (Nombre, Apellido, Dni, Correo, Contraseña, ID_Rol)
-VALUES ('Juan', 'Perez', '12345678', 'jperez', '123456', 1);
-INSERT INTO Usuarios (Nombre, Apellido, Dni, Correo, Contraseña, ID_Rol)
-VALUES ('María', 'Gomez', '12345679', 'mgomez', 'abcdef', 2);
-INSERT INTO Usuarios (Nombre, Apellido, Dni, Correo, Contraseña, ID_Rol)
-VALUES ('Pedro', 'Lopez', '12345670', 'plopez', 'qwerty', 2);
-INSERT INTO Usuarios (Nombre, Apellido, Dni, Correo, Contraseña, ID_Rol)
-VALUES ('Ana', 'Ramirez', '12345671', 'aramirez', 'zxcvbn', 3);
-INSERT INTO Usuarios (Nombre, Apellido, Dni, Correo, Contraseña, ID_Rol)
-VALUES ('Luis', 'Torres', '12345672', 'ltorres', 'poiuyt', 3);
-
--- Insertar datos en la tabla "Empleados"
-INSERT INTO Empleados (ID_Usuario, ID_Horario, ID_Departamento)
-VALUES (1, 1, 1);
-INSERT INTO Empleados (ID_Usuario, ID_Horario, ID_Departamento)
-VALUES (2, 1, 2);
-INSERT INTO Empleados (ID_Usuario, ID_Horario, ID_Departamento)
-VALUES (3, 2, 2);
-INSERT INTO Empleados (ID_Usuario, ID_Horario, ID_Departamento)
-VALUES (4, 2, 3);
-INSERT INTO Empleados (ID_Usuario, ID_Horario, ID_Departamento)
-VALUES (5, 2, 3);
-select * from Empleados;
-
--- Insertar datos en la tabla "Asistencias"
-INSERT INTO Asistencias (ID_Empleado, Fecha, Hora_entrada, Hora_salida)
-VALUES (1, '2023-05-19', '08:00:00', '17:00:00');
-INSERT INTO Asistencias (ID_Empleado, Fecha, Hora_entrada, Hora_salida)
-VALUES (2, '2023-05-19', '08:30:00', '17:30:00');
-INSERT INTO Asistencias (ID_Empleado, Fecha, Hora_entrada, Hora_salida)
-VALUES (3, '2023-05-19', '09:00:00', '18:00:00');
-INSERT INTO Asistencias (ID_Empleado, Fecha, Hora_entrada, Hora_salida)
-VALUES (4, '2023-05-19', '08:15:00', '17:15:00');
-INSERT INTO Asistencias (ID_Empleado, Fecha, Hora_entrada, Hora_salida)
-VALUES (5, '2023-05-19', '08:45:00', '17:45:00');
--- Insertar datos en la tabla "Tardanzas"
-INSERT INTO Tardanzas (ID_Empleado, Fecha, Hora_tardanza)
-VALUES (2, '2023-05-19', '08:35:00');
-INSERT INTO Tardanzas (ID_Empleado, Fecha, Hora_tardanza)
-VALUES (4, '2023-05-19', '08:20:00');
--- Insertar datos en la tabla "Faltas"
-INSERT INTO Faltas (ID_Empleado, Fecha, Motivo)
-VALUES (1, '2023-05-19', 'Enfermedad');
-INSERT INTO Faltas (ID_Empleado, Fecha, Motivo)
-VALUES (3, '2023-05-19', 'Ausencia sin justificación');
--- Insertar datos en la tabla "Permisos"
-INSERT INTO Permisos (ID_Empleado, Fecha_inicio, Fecha_fin, Motivo, Estado)
-VALUES (2, '2023-05-19', '2023-05-21', 'Vacaciones', 'Aprobado');
-INSERT INTO Permisos (ID_Empleado, Fecha_inicio, Fecha_fin, Motivo, Estado)
-VALUES (5, '2023-05-19', '2023-05-19', 'Asuntos personales', 'Aprobado');
-
--- Insertar datos en la tabla "Asistencias"
-INSERT INTO Asistencias (ID_Empleado, Fecha, Hora_entrada, Hora_salida)
-VALUES (1, '2023-05-18', '08:00:00', '17:00:00');
-INSERT INTO Asistencias (ID_Empleado, Fecha, Hora_entrada, Hora_salida)
-VALUES (2, '2023-05-18', '08:30:00', '17:30:00');
-INSERT INTO Asistencias (ID_Empleado, Fecha, Hora_entrada, Hora_salida)
-VALUES (3, '2023-05-18', '09:00:00', '18:00:00');
-INSERT INTO Asistencias (ID_Empleado, Fecha, Hora_entrada, Hora_salida)
-VALUES (4, '2023-05-18', '08:15:00', '17:15:00');
-INSERT INTO Asistencias (ID_Empleado, Fecha, Hora_entrada, Hora_salida)
-VALUES (5, '2023-05-18', '08:45:00', '17:45:00');
--- Insertar datos en la tabla "Tardanzas"
-INSERT INTO Tardanzas (ID_Empleado, Fecha, Hora_tardanza)
-VALUES (2, '2023-05-18', '08:35:00');
--- Insertar datos en la tabla "Faltas"
-INSERT INTO Faltas (ID_Empleado, Fecha, Motivo)
-VALUES (1, '2023-05-18', 'Falta justificada');
-INSERT INTO Faltas (ID_Empleado, Fecha, Motivo)
-VALUES (3, '2023-05-18', 'Licencia médica');
--- Insertar datos en la tabla "Permisos"
-INSERT INTO Permisos (ID_Empleado, Fecha_inicio, Fecha_fin, Motivo, Estado)
-VALUES (2, '2023-05-18', '2023-05-18', 'Asuntos personales', 'Aprobado');
-INSERT INTO Permisos (ID_Empleado, Fecha_inicio, Fecha_fin, Motivo, Estado)
-VALUES (4, '2023-05-18', '2023-05-18', 'Permiso sin goce de sueldo', 'Aprobado');
-
+INSERT INTO `horarios` (`id_horario`, `hora_entrada`, `hora_salida`, `nombre`) VALUES
+(1, '08:00', '18:00', 'Horario Diurno'),
+(2, '20:00', '06:00', 'Horario Nocturno'),
+(3, '19:00', '01:00', 'Horario Especial'),
+(4, '17:00', '20:00', 'Horario Sobre Tiempo');
 
 
 select * from Usuarios;
@@ -211,3 +57,66 @@ select * from Empleados;
 select * from Horarios;
 select * from Roles;
 select * from Asistencias;
+
+
+-Evaluar si agregar esto- ya que deberai existir 5 usaurios ojo sino solo agregar 1 de cada insert
+
+INSERT INTO `empleados` (`id_empleado`, `id_departamento`, `id_horario`, `id_usuario`) VALUES
+(1, 1, 1, 1),
+(2, 2, 1, 2),
+(3, 2, 2, 3),
+(4, 3, 2, 4),
+(5, 3, 2, 5);
+
+-- -------------------------------------------------------
+--
+-- Volcado de datos para la tabla `asistencias`
+--
+
+INSERT INTO `asistencias` (`id_asistencia`, `fecha`, `hora_entrada`, `hora_salida`, `id_empleado`) VALUES
+(1, '2023-05-19', '08:00:00', '17:00:00', 1),
+(2, '2023-05-19', '08:30:00', '17:30:00', 2),
+(3, '2023-05-19', '09:00:00', '18:00:00', 3),
+(4, '2023-05-19', '08:15:00', '17:15:00', 4),
+(5, '2023-05-19', '08:45:00', '17:45:00', 5),
+(6, '2023-05-18', '08:00:00', '17:00:00', 1),
+(7, '2023-05-18', '08:30:00', '17:30:00', 2),
+(8, '2023-05-18', '09:00:00', '18:00:00', 3),
+(9, '2023-05-18', '08:15:00', '17:15:00', 4),
+(10, '2023-05-18', '08:45:00', '17:45:00', 5);
+
+
+--
+-- Volcado de datos para la tabla `faltas`
+--
+
+INSERT INTO `faltas` (`id_falta`, `fecha`, `motivo`, `id_empleado`) VALUES
+(1, '2023-05-19', 'Enfermedad', 1),
+(2, '2023-05-19', 'Ausencia sin justificación', 3),
+(3, '2023-05-18', 'Falta justificada', 1),
+(4, '2023-05-18', 'Licencia médica', 3);
+
+
+
+
+
+--
+-- Volcado de datos para la tabla `permisos`
+--
+
+INSERT INTO `permisos` (`id_permiso`, `estado`, `fecha_fin`, `fecha_inicio`, `motivo`, `id_empleado`) VALUES
+(1, 'Aprobado', '2023-05-21', '2023-05-19', 'Vacaciones', 2),
+(2, 'Aprobado', '2023-05-19', '2023-05-19', 'Asuntos personales', 5),
+(3, 'Aprobado', '2023-05-18', '2023-05-18', 'Asuntos personales', 2),
+(4, 'Aprobado', '2023-05-18', '2023-05-18', 'Permiso sin goce de sueldo', 4);
+
+
+
+--
+-- Volcado de datos para la tabla `tardanzas`
+--
+
+INSERT INTO `tardanzas` (`id_tardanza`, `fecha`, `hora_tardanza`, `id_empleado`) VALUES
+(1, '2023-05-19', '08:35:00', 2),
+(2, '2023-05-19', '08:20:00', 4),
+(3, '2023-05-18', '08:35:00', 2);

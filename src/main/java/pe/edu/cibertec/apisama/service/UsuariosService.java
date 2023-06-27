@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pe.edu.cibertec.apisama.model.Usuarios;
 import pe.edu.cibertec.apisama.repository.UsuariosRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -13,14 +15,21 @@ public class UsuariosService {
 
     private final UsuariosRepository usuariosRepository;
 
+    private final BCryptPasswordEncoder passwordEncoder;
+
     @Autowired
-    public UsuariosService(UsuariosRepository usuariosRepository) {
+    public UsuariosService(UsuariosRepository usuariosRepository, BCryptPasswordEncoder passwordEncoder) {
         this.usuariosRepository = usuariosRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
+
     public Usuarios crearUsuario(Usuarios usuario) {
+        String contraseñaEncriptada = passwordEncoder.encode(usuario.getContraseña());
+        usuario.setContraseña(contraseñaEncriptada);
         return usuariosRepository.save(usuario);
     }
+
 
     public List<Usuarios> listarUsuarios() {
         return usuariosRepository.findAll();
