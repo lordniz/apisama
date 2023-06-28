@@ -18,10 +18,8 @@ public class Horarios {
     private String nombre;
 
     @Column(name = "hora_entrada")
-    @JsonProperty("hora_entrada")
     private String horaEntrada;
 
     @Column(name = "hora_salida")
-    @JsonProperty("hora_salida")
     private String horaSalida;
 }
