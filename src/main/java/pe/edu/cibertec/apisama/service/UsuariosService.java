@@ -47,13 +47,14 @@ public class UsuariosService {
     public Usuarios modificarUsuario(int id, Usuarios usuarioModificado) {
         Optional<Usuarios> usuarioOptional = usuariosRepository.findById(id);
         if (usuarioOptional.isPresent()) {
+            String contraseñaModificadaEncriptada = passwordEncoder.encode(usuarioModificado.getContraseña());
             Usuarios usuarioExistente = usuarioOptional.get();
             // Actualizar los campos necesarios del usuario existente con los valores del usuario modificado
             usuarioExistente.setNombre(usuarioModificado.getNombre());
             usuarioExistente.setApellido(usuarioModificado.getApellido());
             usuarioExistente.setDni(usuarioModificado.getDni());
             usuarioExistente.setCorreo(usuarioModificado.getCorreo());
-            usuarioExistente.setContraseña(usuarioModificado.getContraseña());
+            usuarioExistente.setContraseña(contraseñaModificadaEncriptada);
             usuarioExistente.setRol(usuarioModificado.getRol());
             return usuariosRepository.save(usuarioExistente);
         } else {
