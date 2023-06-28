@@ -59,6 +59,26 @@ select * from Roles;
 select * from Asistencias;
 
 
+usuario
+{
+        "idUsuario": 7,
+        "nombre": "Carlos",
+        "apellido": "Campos",
+        "dni": "43888888",
+        "correo": "carlos@gmail.com",
+        "contraseña": "$2a$10$mplc3fAt4eFD.NBieXIVz.QGuiBo6sz7CTZKnQN8JHLN72Ml/ZWmG",
+        "direccion": "Av La Paz cdra 19, San Miguel",
+        "celular": "960114225",
+        "rol": {
+            "idRol": 1,
+            "nombreRol": "Administrador"
+        }
+    }
+    {
+            "idDepartamento": 1,
+            "nombreDepartamento": "Ventas"
+        }
+
 -Evaluar si agregar esto- ya que deberia  existir 5 usaurios ojo sino solo agregar 1 de cada insert ADVERTENCIA
 
 INSERT INTO `empleados` (`id_empleado`, `id_departamento`, `id_horario`, `id_usuario`) VALUES
