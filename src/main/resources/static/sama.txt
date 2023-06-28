@@ -59,7 +59,7 @@ select * from Roles;
 select * from Asistencias;
 
 
--Evaluar si agregar esto- ya que deberai existir 5 usaurios ojo sino solo agregar 1 de cada insert
+-Evaluar si agregar esto- ya que deberia  existir 5 usaurios ojo sino solo agregar 1 de cada insert ADVERTENCIA
 
 INSERT INTO `empleados` (`id_empleado`, `id_departamento`, `id_horario`, `id_usuario`) VALUES
 (1, 1, 1, 1),
