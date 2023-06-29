@@ -65,6 +65,7 @@ public class SecurityConfig {
                 .requestMatchers("/noticias/**").permitAll()
                 .requestMatchers("/roles/**").permitAll()
                 .requestMatchers("/departamentos/**").permitAll()
+                .requestMatchers("/empleados/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/celular/crear").hasAuthority("ADMIN")
                 .requestMatchers(HttpMethod.GET,"/api/celular/listar").hasAnyAuthority("ADMIN" , "USER")
                 .requestMatchers(HttpMethod.GET,"/api/celular/listarId/**").hasAnyAuthority("ADMIN" , "USER")
